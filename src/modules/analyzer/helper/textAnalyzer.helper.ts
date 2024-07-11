@@ -11,7 +11,7 @@ export class TextAnalyzerHelper {
         return TextAnalyzerHelper.instance;
     }
     async getWordCount(text: string): Promise<number> {
-        const words = text.trim()?.split(/\s+/); // split the text at one or more whitespace characters.
+        const words = text?.trim()?.split(/\s+/); // split the text at one or more whitespace characters.
         return words.length;
     }
 
