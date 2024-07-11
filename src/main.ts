@@ -5,7 +5,8 @@ import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { AppConfig } from './configuration/app.config';
-
+import { join } from 'path';
+import * as express from 'express';
 
 
 async function bootstrap() {
@@ -22,6 +23,8 @@ async function bootstrap() {
   app.use(compression()); //Compression can greatly decrease the size of the response body, thereby increasing the speed of a web app.
   app.useGlobalPipes(new ValidationPipe()); //validate the correctness of any data sent into a web application
   app.enableCors(); //Cross-origin resource sharing (CORS) is a mechanism that allows resources to be requested from another domain
+ 
+  app.use('/public', express.static(join(__dirname, '..', 'public')));
 
 
   const port = AppConfig().port;
