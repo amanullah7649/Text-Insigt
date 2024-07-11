@@ -4,6 +4,7 @@ import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { AppConfig } from './configuration/app.config';
 
 
 
@@ -12,7 +13,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
 
-  // const port = appConfig.port
   app.use(helmet()); //  protect app from some well-known web vulnerabilities by setting HTTP headers appropriately.
   app.enableVersioning({
     type: VersioningType.URI,
@@ -24,8 +24,10 @@ async function bootstrap() {
   app.enableCors(); //Cross-origin resource sharing (CORS) is a mechanism that allows resources to be requested from another domain
 
 
-  // await app.listen(port);
-  await app.listen(30001);
+  const port = AppConfig().port;
+  await app.listen(port);
+  // await app.listen(3001);
+  console.log(`Service running on port: ${port}`)
 
 }
 bootstrap();
